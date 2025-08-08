@@ -12,9 +12,19 @@
     h1 {
         text-align: center;
     }
+    .input-container {
+        text-align: center;
+        margin: 15px;
+    }
+    input {
+        padding: 8px;
+        font-size: 14px;
+        width: 200px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
     button {
-        display: block;
-        margin: 20px auto;
+        margin-top: 10px;
         padding: 10px 20px;
         background: #4CAF50;
         color: white;
@@ -42,15 +52,42 @@
         background: #4CAF50;
         color: white;
     }
+    .greeting {
+        text-align: center;
+        font-size: 18px;
+        margin-top: 20px;
+        font-weight: bold;
+        color: #333;
+    }
 </style>
 </head>
 <body>
 
 <h1>ESL Feedback Generator</h1>
-<button onclick="generateFeedback()">Generate Feedback</button>
+
+<div class="input-container">
+    <input type="text" id="studentName" placeholder="Enter student's name">
+    <br>
+    <button id="generateBtn">Generate Feedback</button>
+</div>
+
+<div id="greeting" class="greeting"></div>
 <div id="feedback-container"></div>
 
 <script>
+// Short greetings
+const greetings = [
+    "Great work today,",
+    "Awesome effort,",
+    "You did amazing,",
+    "Fantastic job,",
+    "I’m proud of you,",
+    "Well done,",
+    "Keep it up,",
+    "Bravo,"
+];
+
+// Feedback data
 const feedbackData = {
     "Vocabulary": [
         "You learned some new words today. Great job! Try using them when you talk with friends.",
@@ -104,28 +141,41 @@ const feedbackData = {
     ]
 };
 
+// Random helper functions
+function getRandomItem(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 function getRandomTips(array, count) {
     let shuffled = array.slice().sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
 
+// Main function
 function generateFeedback() {
+    let name = document.getElementById("studentName").value.trim();
+    let greeting = getRandomItem(greetings);
+
+    document.getElementById("greeting").innerText = 
+        name ? `${greeting} ${name}!` : `${greeting} student!`;
+
     let container = document.getElementById("feedback-container");
     container.innerHTML = "";
 
     for (let category in feedbackData) {
         let tips = getRandomTips(feedbackData[category], 3);
-
         let table = `<table>
                         <tr><th>${category}</th><th>Tip / Comment</th></tr>`;
         tips.forEach((tip, index) => {
             table += `<tr><td>${index + 1}</td><td>${tip}</td></tr>`;
         });
         table += `</table>`;
-
         container.innerHTML += table;
     }
 }
+
+// Event listener for button
+document.getElementById("generateBtn").addEventListener("click", generateFeedback);
 </script>
 
 </body>
