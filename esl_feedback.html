@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ESL Feedback Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f4f4f4;
+    }
+    h1 {
+        text-align: center;
+    }
+    button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #45a049;
+    }
+    table {
+        border-collapse: collapse;
+        margin: 20px auto;
+        width: 80%;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background: #4CAF50;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<h1>ESL Feedback Generator</h1>
+<button onclick="generateFeedback()">Generate Feedback</button>
+<div id="feedback-container"></div>
+
+<script>
+const feedbackData = {
+    "Vocabulary": [
+        "You learned some new words today. Great job! Try using them when you talk with friends.",
+        "Your word bank is growing! Keep reading small English books to find more fun words.",
+        "You remembered many words from last week. That shows your good memory!",
+        "You try hard to learn new words. Let’s keep a small word diary together.",
+        "I like how you use new words in your sentences. It makes your English shine!",
+        "When you hear a new word, try drawing a picture of it to help remember.",
+        "You are starting to use more interesting words when you speak. Keep going!",
+        "Let’s play more vocabulary games so you can remember words in a fun way."
+    ],
+    "Speaking Confidence": [
+        "You spoke louder and clearer today. That makes me proud!",
+        "It’s nice to see you raise your hand to share your ideas.",
+        "Your smile while speaking makes everyone want to listen to you.",
+        "You tried speaking even when you weren’t sure — that’s real courage!",
+        "The more you speak, the easier it becomes. You’re doing so well.",
+        "Don’t worry about small mistakes — your friends still understand you.",
+        "You’re starting to speak without waiting too long. Great confidence!",
+        "Your voice was strong and happy today. It made the class brighter."
+    ],
+    "Pronunciation": [
+        "Your English sounds are getting clearer each week.",
+        "You tried hard with the 'R' sound today. It’s getting better!",
+        "The way you copied my pronunciation was very accurate.",
+        "Your English words are easier to understand now. Keep practicing!",
+        "I like how you listen carefully before repeating the word.",
+        "Slowly saying each sound really helps — you did that today!",
+        "Your mouth shape for tricky words is improving. Well done!",
+        "Repeating after songs will help your pronunciation even more."
+    ],
+    "Grammar Accuracy": [
+        "You made fewer grammar mistakes today than before — great progress!",
+        "You remembered to use the right verb tense. Excellent!",
+        "You fixed your own mistake while speaking. That’s smart thinking!",
+        "Your sentences are getting longer and more correct.",
+        "It’s nice to see you use ‘a’ and ‘the’ correctly.",
+        "You remembered to put the subject first. Good work!",
+        "Your word order is much better this week.",
+        "Practicing with short sentences has made your grammar stronger."
+    ],
+    "Participation & Attitude": [
+        "You were very active in class and helped your friends.",
+        "I love how you always say ‘thank you’ after activities.",
+        "You are polite and listen when others are speaking.",
+        "Your happy attitude makes the class a fun place.",
+        "You always try your best, even if the activity is hard.",
+        "You joined every game and activity today — great energy!",
+        "You helped a friend when they didn’t understand. That’s kind!",
+        "Your positive attitude helps everyone feel good in class."
+    ]
+};
+
+function getRandomTips(array, count) {
+    let shuffled = array.slice().sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+function generateFeedback() {
+    let container = document.getElementById("feedback-container");
+    container.innerHTML = "";
+
+    for (let category in feedbackData) {
+        let tips = getRandomTips(feedbackData[category], 3);
+
+        let table = `<table>
+                        <tr><th>${category}</th><th>Tip / Comment</th></tr>`;
+        tips.forEach((tip, index) => {
+            table += `<tr><td>${index + 1}</td><td>${tip}</td></tr>`;
+        });
+        table += `</table>`;
+
+        container.innerHTML += table;
+    }
+}
+</script>
+
+</body>
+</html>
